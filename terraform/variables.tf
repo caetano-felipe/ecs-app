@@ -51,6 +51,12 @@ variable "service_hosts" {
   description = "Lista de endereços ou nomes de host atribuídos ao serviço para balanceamento de carga ou exposição."
 }
 
+variable "container_image" {
+  type        = string
+  description = "Imagem com tag para deployment da aplicação no ECS"
+  default     = null
+}
+
 variable "ssm_vpc_id" {
   type        = string
   description = "ID do VPC armazenado no AWS Systems Manager (SSM) onde o serviço será implantado."
