@@ -92,11 +92,14 @@ cd ../terraform
 REPOSITORY_TAG=$AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$REPOSITORY_NAME:$GIT_COMMIT_HASH
 
 echo "DEPLOY - TERRAFORM INIT"
-terraform init -backend-config=environment/$BRANCH_NAME/backend.tfvars
+terraform init -backend-config=environment/dev/backend.tfvars
 
 
 echo "DEPLOY - TERRAFORM PLAN"
-terraform plan -var-file=environment/$BRANCH_NAME/terraform.tfvars -var container_image=$REPOSITORY_TAG
+terraform plan -var-file=environment/dev/terraform.tfvars -var container_image=$REPOSITORY_TAG
 
 echo "DEPLOY - TERRAFORM APPLY"
-terraform apply --auto-approve -var-file=environment/$BRANCH_NAME/terraform.tfvars -var container_image=$REPOSITORY_TAG
+terraform apply --auto-approve -var-file=environment/dev/terraform.tfvars -var container_image=$REPOSITORY_TAG
+
+echo "DEPLOY - WAIT DEPLOY"
+aws ecs wait services-stable --cluster $CLUSTER_NAME --services $APP_NAME
