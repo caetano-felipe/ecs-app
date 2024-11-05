@@ -1,5 +1,5 @@
 module "service" {
-  source = "/home/felipe/Documentos/workspace/arquitetura-de-containers/ecs-service-module"
+  source = "github.com/caetano-felipe/ecs-service-module?ref=v1.0.3"
 
   region                      = var.region
   cluster_name                = var.cluster_name
